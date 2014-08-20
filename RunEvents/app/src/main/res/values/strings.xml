@@ -2,11 +2,8 @@
 <resources>
 
     <string name="app_name">Run Events</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="content">image</string>
-    <string name="title_activity_the_home">TheHome</string>
-    <string name="title_section1">5K</string>
-    <string name="title_section2">10K</string>
+    <string name="title_activity_main">Main</string>
 
 </resources>

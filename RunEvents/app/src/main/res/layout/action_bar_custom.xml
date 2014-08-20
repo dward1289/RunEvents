@@ -20,7 +20,8 @@
     android:inputType="textFilter"
     android:hint="City Name"
     android:visibility="invisible"
-        android:layout_weight="0.8" />
+    android:enabled="false"
+    android:layout_weight="0.8" />
 
     <ImageButton
         android:id="@+id/searchBtn"
