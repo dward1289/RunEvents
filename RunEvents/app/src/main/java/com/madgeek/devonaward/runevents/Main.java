@@ -3,6 +3,8 @@ package com.madgeek.devonaward.runevents;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,9 +59,18 @@ public class Main extends Activity {
 
         });
 
-        //5K button will be enabled by default
+
         btn5k = (Button)findViewById(R.id.btn5);
+        btn10k = (Button)findViewById(R.id.btn10);
+        //5K button will be enabled by default
         btn5k.setPressed(true);
+        //5K button settings
+        btn5k.getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
+        btn5k.setTextColor(Color.DKGRAY);
+
+        //10K button settings
+        btn10k.getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
+        btn10k.setTextColor(Color.WHITE);
 
         //If the 5K button is selected, the 10K button will not be selected at the same time.
         btn5k.setOnTouchListener(new View.OnTouchListener() {
@@ -67,14 +78,17 @@ public class Main extends Activity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 btn5k.setPressed(true);
+                btn5k.setTextColor(Color.DKGRAY);
+                btn10k.setTextColor(Color.WHITE);
                 btn10k.setPressed(false);
+
 
                 //5K races will be retrieved here...
                 return true;
             }
         });
 
-        btn10k = (Button)findViewById(R.id.btn10);
+
         //If the 10K button is selected, the 5K button will not be selected at the same time.
         btn10k.setOnTouchListener(new View.OnTouchListener() {
 
@@ -82,6 +96,10 @@ public class Main extends Activity {
             public boolean onTouch(View v, MotionEvent event) {
                 btn10k.setPressed(true);
                 btn5k.setPressed(false);
+                btn10k.setTextColor(Color.DKGRAY);
+                btn5k.setTextColor(Color.WHITE);
+
+
 
                 //10K races will be retrieved here...
                 return true;
