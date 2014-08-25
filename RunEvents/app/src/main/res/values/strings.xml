@@ -4,10 +4,10 @@
     <string name="app_name">Run Events</string>
     <string name="action_favorite">Save Event</string>
     <string name="content">image</string>
-    <string name="title_activity_main">Main</string>
-    <string name="title_activity_event_details">EventDetails</string>
+    <string name="title_activity_main">Run Events</string>
+    <string name="title_activity_event_details">Event Details</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_add_event">AddEvent</string>
+    <string name="title_activity_add_event">Save Event</string>
     <string name="action_settings">Settings</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
@@ -25,8 +25,9 @@
     <string name="tenk">10K</string>
     <string name="viewSaved">View Saved Events</string>
     <string name="saveit">Save</string>
-    <string name="title_activity_sign_up_web">SignUpWeb</string>
+    <string name="title_activity_sign_up_web">Sign Up</string>
     <string name="iRegistered">I\'ve Registered</string>
-    <string name="title_activity_fav_page">FavPage</string>
+    <string name="title_activity_fav_page">Saved Events</string>
+    <string name="title_activity_fav_page_cal">Saved Events</string>
 
 </resources>

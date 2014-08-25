@@ -23,10 +23,19 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"/>
 
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listViewData"
+        android:layout_below="@+id/btn5"
+        android:layout_above="@+id/viewFavBtn" />
+
     <Button
         android:id="@+id/viewFavBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/viewSaved"
         android:layout_alignParentBottom="true"/>
+
+
 </RelativeLayout>
