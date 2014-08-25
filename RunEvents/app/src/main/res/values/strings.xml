@@ -27,5 +27,6 @@
     <string name="saveit">Save</string>
     <string name="title_activity_sign_up_web">SignUpWeb</string>
     <string name="iRegistered">I\'ve Registered</string>
+    <string name="title_activity_fav_page">FavPage</string>
 
 </resources>

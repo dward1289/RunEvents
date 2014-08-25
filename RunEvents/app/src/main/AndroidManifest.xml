@@ -28,6 +28,10 @@
             android:name=".SignUpWeb"
             android:label="@string/title_activity_sign_up_web" >
         </activity>
+        <activity
+            android:name=".FavPage"
+            android:label="@string/title_activity_fav_page" >
+        </activity>
     </application>
 
 </manifest>

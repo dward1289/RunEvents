@@ -3,6 +3,7 @@ package com.madgeek.devonaward.runevents;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ public class Main extends Activity {
     ImageButton searchBtn;
     Button btn5k;
     Button btn10k;
+    Button viewFavBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +62,9 @@ public class Main extends Activity {
         });
 
 
-        btn5k = (Button)findViewById(R.id.btn5);
-        btn10k = (Button)findViewById(R.id.btn10);
+        btn5k = (Button) findViewById(R.id.btn5);
+        btn10k = (Button) findViewById(R.id.btn10);
+        viewFavBtn = (Button) findViewById(R.id.viewFavBtn);
         //5K button will be enabled by default
         btn5k.setPressed(true);
         //5K button settings
@@ -100,11 +103,22 @@ public class Main extends Activity {
                 btn5k.setTextColor(Color.WHITE);
 
 
-
                 //10K races will be retrieved here...
                 return true;
             }
         });
-    }
 
+        //View the saved events page
+        viewFavBtn.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Intent myIntent = new Intent(Main.this, FavPage.class);
+                Main.this.startActivity(myIntent);
+                return true;
+            }
+        });
+
+
+    }
 }

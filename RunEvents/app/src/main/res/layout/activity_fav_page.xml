@@ -1,0 +1,24 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.madgeek.devonaward.runevents.FavPage">
+
+    <ImageButton
+        android:layout_width="195dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_listit"
+        android:id="@+id/btnListOnly"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:scaleType="fitCenter"/>
+
+    <ImageButton
+        android:layout_width="195dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_calendarlist"
+        android:id="@+id/btnCList"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"/>
+
+</RelativeLayout>
