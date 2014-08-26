@@ -12,9 +12,12 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.Toast;
 
 
 public class Main extends Activity {
@@ -24,6 +27,41 @@ public class Main extends Activity {
     Button btn5k;
     Button btn10k;
     Button viewFavBtn;
+
+    ListView mainList;
+
+    //Dummy data currently. JSON data will be populated in the arrays from API.
+    String[] titleList = {
+            "Run in the Name of Love",
+            "Color Me Rad",
+            "Zombie Run",
+            "Pumpkin Patch 5K",
+            "8th Annual Patrol Stroll"
+    };
+
+    String[] dateList = {
+            "August 30, 2014",
+            "September 12, 2014",
+            "September 20, 2014",
+            "October 5, 2014",
+            "October 15, 2014"
+    };
+
+    String[] areaList = {
+            "Durham, NC",
+            "Durham, NC",
+            "Raleigh, NC",
+            "Morrisville, NC",
+            "Chapel Hill, NC"
+    };
+
+    String[] runList = {
+            "5K RUN",
+            "5K RUN",
+            "5K RUN",
+            "5K RUN",
+            "5K RUN"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +146,20 @@ public class Main extends Activity {
             }
         });
 
+        //Custom adapter displays and add functionality to custom list view
+        CustomList adapter = new
+                CustomList(Main.this, titleList, dateList, areaList, runList);
+        //Get list view
+        mainList=(ListView)findViewById(R.id.listViewData);
+        //Add custom adapter to list view and setup onClick listener
+        mainList.setAdapter(adapter);
+        mainList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Toast.makeText(Main.this, "Event: " + titleList[+position], Toast.LENGTH_SHORT).show();
+            }
+        });
         //View the saved events page
         viewFavBtn.setOnTouchListener(new View.OnTouchListener() {
 
