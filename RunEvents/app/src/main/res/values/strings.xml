@@ -20,7 +20,7 @@
     <string name="addresshold">Event Address</string>
     <string name="address">Address:</string>
     <string name="eventTitle">Event Title</string>
-    <string name="viewInfo"><![CDATA[View More Information &amp; Register]]></string>
+    <string name="viewInfo">View More Information &amp; Register</string>
     <string name="fivek">5K</string>
     <string name="tenk">10K</string>
     <string name="viewSaved">View Saved Events</string>

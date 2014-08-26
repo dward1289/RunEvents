@@ -31,6 +31,7 @@ public class Main extends Activity {
     ListView mainList;
 
     //Dummy data currently. JSON data will be populated in the arrays from API.
+    //Title of events
     String[] titleList = {
             "Run in the Name of Love",
             "Color Me Rad",
@@ -38,7 +39,7 @@ public class Main extends Activity {
             "Pumpkin Patch 5K",
             "8th Annual Patrol Stroll"
     };
-
+    //Dates
     String[] dateList = {
             "August 30, 2014",
             "September 12, 2014",
@@ -46,7 +47,7 @@ public class Main extends Activity {
             "October 5, 2014",
             "October 15, 2014"
     };
-
+    //City and State
     String[] areaList = {
             "Durham, NC",
             "Durham, NC",
@@ -54,14 +55,32 @@ public class Main extends Activity {
             "Morrisville, NC",
             "Chapel Hill, NC"
     };
-
+    //5K or 10K
     String[] runList = {
-            "5K RUN",
-            "5K RUN",
-            "5K RUN",
-            "5K RUN",
-            "5K RUN"
+            "5K",
+            "5K",
+            "5K",
+            "5K",
+            "5K"
     };
+    //Addresses
+    String[] addressList = {
+            "103 Hobkin Rd",
+            "4501 Railway Dr",
+            "2309 Fareway Ln",
+            "303 Lockingham Rd",
+            "5167 Orangeville Dr"
+    };
+    //Zip Codes
+    String[] zipList = {
+            "27707",
+            "27713",
+            "28115",
+            "27587",
+            "27510"
+    };
+    //URLs from JSON data will go here
+    //String[] registerURLList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +118,8 @@ public class Main extends Activity {
 
         });
 
+        //Display alert message when enter key is pressed
+        //Search: User will be able to find races in other cities.
 
         btn5k = (Button) findViewById(R.id.btn5);
         btn10k = (Button) findViewById(R.id.btn10);
@@ -158,6 +179,15 @@ public class Main extends Activity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Toast.makeText(Main.this, "Event: " + titleList[+position], Toast.LENGTH_SHORT).show();
+
+                //Send data to info view
+                Intent infoIntent = new Intent(Main.this, EventDetails.class);
+                infoIntent.putExtra("title", titleList[+position]);
+                infoIntent.putExtra("date", dateList[+position]);
+                infoIntent.putExtra("run", runList[+position]);
+                infoIntent.putExtra("area", addressList[+position]+"\n" + areaList[+position]+ " "+zipList[+position]);
+                Main.this.startActivity(infoIntent);
+
             }
         });
         //View the saved events page

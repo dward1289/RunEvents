@@ -7,7 +7,7 @@
     <ImageButton
         android:layout_width="195dp"
         android:layout_height="60dp"
-        android:src="@drawable/ic_listit"
+        android:src="@drawable/ic_listitlight"
         android:id="@+id/btnListOnly"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -16,7 +16,7 @@
     <ImageButton
         android:layout_width="195dp"
         android:layout_height="60dp"
-        android:src="@drawable/ic_calendarlist"
+        android:src="@drawable/ic_calendarlistlight"
         android:id="@+id/btnCList"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"/>

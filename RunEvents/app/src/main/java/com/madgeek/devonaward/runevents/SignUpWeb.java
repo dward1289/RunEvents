@@ -26,6 +26,11 @@ public class SignUpWeb extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.sign_up_web, menu);
         return true;
+
+        //Display web alert here
+        //Sign Up/Register: User will be directed to the event website to sign up/register for race.
+
+        //Display site image here
     }
 
     @Override

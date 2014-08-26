@@ -41,7 +41,7 @@ public class CustomList extends ArrayAdapter<String> {
         txtTitle.setText(titleList[position]);
         txtArea.setText(areaList[position]);
         txtDate.setText(dateList[position]);
-        txtRun.setText(runList[position]);
+        txtRun.setText(runList[position] + " RUN");
 
         return rowView;
     }

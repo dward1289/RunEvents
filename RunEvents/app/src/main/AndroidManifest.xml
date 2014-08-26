@@ -24,7 +24,7 @@
         <activity
             android:name=".AddEvent"
             android:label="@string/title_activity_add_event"
-            android:parentActivityName=".Main">
+            android:parentActivityName=".EventDetails">
         </activity>
         <activity
             android:name=".SignUpWeb"
@@ -38,8 +38,7 @@
         </activity>
         <activity
             android:name=".FavPageCal"
-            android:label="@string/title_activity_fav_page_cal"
-            android:parentActivityName=".FavPage">
+            android:label="@string/title_activity_fav_page_cal">
         </activity>
     </application>
 
