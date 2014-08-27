@@ -64,6 +64,10 @@ public class EventDetails extends Activity {
                 Intent webIntent = new Intent(EventDetails.this, SignUpWeb.class);
                 //Get website to sign up
                 //infoIntent.putExtra("site", site);
+                webIntent.putExtra("title", fetchedTitle);
+                webIntent.putExtra("date", fetchedDate);
+                webIntent.putExtra("run", fetchedRun);
+                webIntent.putExtra("area", fetchedArea);
                 EventDetails.this.startActivity(webIntent);
                 return true;
             }

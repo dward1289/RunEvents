@@ -2,6 +2,8 @@ package com.madgeek.devonaward.runevents;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -32,7 +34,17 @@ public class FavPageCal extends Activity {
         calendarView.setEnabled(false);
 
         //Display alert for calendar functionality
-        //Calendar: User will be able to select a date and events will display that are in the selected week.
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(FavPageCal.this);
+        alertDialogBuilder.setTitle(this.getTitle());
+        alertDialogBuilder.setMessage("User will be able to select a date and events will display that are in the selected week.");
+        alertDialogBuilder.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show alert
+        alertDialog.show();
 
         //CList button will be enabled by default
         calBtn.setPressed(true);

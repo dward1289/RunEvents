@@ -2,6 +2,8 @@ package com.madgeek.devonaward.runevents;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -66,7 +68,17 @@ public class AddEvent extends Activity {
         if (id == R.id.action_saving) {
             //Saves event
             //Display alert for save function
-            //Save: User will be able to save the event and view them later.
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddEvent.this);
+            alertDialogBuilder.setTitle(this.getTitle());
+            alertDialogBuilder.setMessage("User will be able to save the event and view them later.");
+            alertDialogBuilder.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog,int id) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            // show alert
+            alertDialog.show();
             return true;
         }
         return super.onOptionsItemSelected(item);
