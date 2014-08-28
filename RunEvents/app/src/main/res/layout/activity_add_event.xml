@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/foot2"
     tools:context="com.madgeek.devonaward.runevents.AddEvent">
 
     <TextView
@@ -10,6 +11,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/eventTitle"
+        android:textStyle="bold"
+        android:textColor="#081EC4"
+        android:typeface="serif"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp" />
 
@@ -19,6 +23,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/address"
+        android:typeface="serif"
+        android:textColor="#35BD50"
+        android:textStyle="bold"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="100dp"
         android:layout_marginLeft="10dp"/>
@@ -29,6 +36,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/addresshold"
+        android:textStyle="bold"
+        android:typeface="serif"
         android:layout_alignParentRight="true"
         android:layout_marginTop="100dp"
         android:layout_marginRight="10dp"
@@ -41,6 +50,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/datetitle"
+        android:textColor="#35BD50"
+        android:textStyle="bold"
+        android:typeface="serif"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="180dp"
         android:layout_marginLeft="10dp"/>
@@ -51,6 +63,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/dateholder"
+        android:textStyle="bold"
+        android:typeface="serif"
         android:layout_alignParentRight="true"
         android:layout_marginTop="180dp"
         android:layout_marginRight="10dp"/>
@@ -62,6 +76,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/distance"
         android:layout_alignParentLeft="true"
+        android:textStyle="bold"
+        android:typeface="serif"
+        android:textColor="#F0A400"
         android:layout_marginTop="260dp"
         android:layout_marginLeft="10dp"/>
 
@@ -71,6 +88,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/whatk"
+        android:textStyle="bold"
+        android:typeface="serif"
         android:layout_alignParentRight="true"
         android:layout_marginTop="260dp"
         android:layout_marginRight="10dp"/>
@@ -81,6 +100,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/countdownques"
+        android:textStyle="bold"
+        android:typeface="serif"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="340dp"
         android:layout_marginLeft="10dp"/>
@@ -95,12 +116,16 @@
     <RadioButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:typeface="serif"
         android:text="@string/yes"
         android:id="@+id/radioY"/>
 
     <RadioButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:typeface="serif"
         android:text="@string/no"
         android:layout_marginLeft="80dp"
         android:id="@+id/radioN" />
@@ -112,6 +137,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/signup"
+        android:textStyle="bold"
+        android:typeface="serif"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="410dp"
         android:layout_marginLeft="10dp"/>
@@ -127,13 +154,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/yes"
+            android:textStyle="bold"
+            android:typeface="serif"
             android:id="@+id/radioY2"/>
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/no"
+            android:textStyle="bold"
+            android:typeface="serif"
             android:layout_marginLeft="80dp"
             android:id="@+id/radioN2" />
     </RadioGroup>
+
+    <Button
+        android:id="@+id/infoRegBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/viewInfo"
+        android:layout_alignParentBottom="true"
+        android:background="#000000"
+        android:textColor="#ffffff"
+        android:typeface="serif"
+        android:visibility="gone"/>
 </RelativeLayout>

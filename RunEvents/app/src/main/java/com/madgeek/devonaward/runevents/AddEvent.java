@@ -8,7 +8,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class AddEvent extends Activity {
@@ -21,6 +28,9 @@ public class AddEvent extends Activity {
     String fetchedDate;
     String fetchedArea;
     String fetchedRun;
+    RadioGroup signupYN;
+    RadioButton nosign;
+    Button signUpBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +59,43 @@ public class AddEvent extends Activity {
         theArea.setText(fetchedArea);
         theDate.setText(fetchedDate);
         theRun.setText(fetchedRun);
-    }
 
+        //If the user hasn't signed up the option to sign up will be presented.
+        signUpBtn = (Button)findViewById(R.id.infoRegBtn);
+        signupYN = (RadioGroup) findViewById(R.id.radioGroupYN2);
+        signupYN.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                int selected =
+                        signupYN.getCheckedRadioButtonId();
+                nosign = (RadioButton)findViewById(selected);
+                if(nosign.getText().equals("No")){
+                    signUpBtn.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        //Register and view more info button with onClick
+        signUpBtn.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                //Navigate to web view
+                Intent webIntent = new Intent(AddEvent.this, SignUpWeb.class);
+                //Get website to sign up
+                //infoIntent.putExtra("site", site);
+                webIntent.putExtra("title", fetchedTitle);
+                webIntent.putExtra("date", fetchedDate);
+                webIntent.putExtra("run", fetchedRun);
+                webIntent.putExtra("area", fetchedArea);
+                AddEvent.this.startActivity(webIntent);
+                return true;
+            }
+        });
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,7 +118,8 @@ public class AddEvent extends Activity {
             alertDialogBuilder.setMessage("User will be able to save the event and view them later.");
             alertDialogBuilder.setPositiveButton("OK",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog,int id) {
-                    dialog.cancel();
+                    Intent infoIntent = new Intent(AddEvent.this, Main.class);
+                    AddEvent.this.startActivity(infoIntent);
                 }
             });
             AlertDialog alertDialog = alertDialogBuilder.create();

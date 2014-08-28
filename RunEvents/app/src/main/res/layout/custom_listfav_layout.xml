@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:text="20TH ANNUAL RUN FOR LIFE"
+        android:layout_width="260dp"
+        android:layout_height="70dp"
+        android:typeface="serif"
+        android:textStyle="bold"
+        android:textColor="#081EC4"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="40dp"
+        android:textSize="12pt"
+        android:gravity="center"
+        android:ellipsize="none"
+        android:maxLines="2" />
+
+    <TextView
+        android:id="@+id/txtSign"
+        android:text="Signed Up Soon"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:gravity="right"
+        android:typeface="serif"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textSize="6pt"
+        android:ellipsize="none"
+        android:maxLines="2"/>
+
+    <TextView
+        android:id="@+id/txtRun"
+        android:text="10K Run"
+        android:layout_width="70dp"
+        android:layout_height="80dp"
+        android:typeface="serif"
+        android:textStyle="bold"
+        android:textColor="#F0A400"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:layout_marginTop="50dp"
+        android:textSize="14pt"
+        android:ellipsize="none"
+        android:maxLines="2"/>
+
+
+    <TextView
+        android:id="@+id/txtDate"
+        android:text="SEPTEMBER 25, 2014"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="#35BD50"
+        android:typeface="serif"
+        android:textStyle="bold"
+        android:textSize="6pt"
+        android:ellipsize="none"
+        android:maxLines="2" />
+
+    <TextView
+        android:id="@+id/txtArea"
+        android:text="CHARLOTTE, NC"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:layout_marginLeft="160dp"
+        android:textColor="#35BD50"
+        android:typeface="serif"
+        android:textStyle="bold"
+        android:textSize="6pt"
+        android:ellipsize="none"
+        android:maxLines="2" />
+
+    <TextView
+        android:id="@+id/txtCountit"
+        android:text="XX days away!"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="10dp"
+        android:typeface="serif"
+        android:textStyle="bold"
+        android:textColor="#ff0000"
+        android:textSize="6pt"
+        android:ellipsize="none"
+        android:maxLines="2" />
+
+
+</RelativeLayout>
+

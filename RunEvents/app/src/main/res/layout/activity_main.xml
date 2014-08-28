@@ -2,24 +2,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E8E8E8"
     tools:context="com.madgeek.devonaward.runevents.Main">
 
 
     <Button
-        android:layout_width="195dp"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:text="@string/fivek"
         android:textSize="18pt"
         android:id="@+id/btn5"
+        android:background="#000000"
+        android:typeface="serif"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"/>
 
     <Button
-        android:layout_width="195dp"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:textSize="18pt"
         android:text="@string/tenk"
         android:id="@+id/btn10"
+        android:typeface="serif"
+        android:background="#000000"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"/>
 
@@ -34,7 +39,10 @@
         android:id="@+id/viewFavBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#000000"
         android:text="@string/viewSaved"
+        android:textColor="#ffffff"
+        android:typeface="serif"
         android:layout_alignParentBottom="true"/>
 
 

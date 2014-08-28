@@ -2,10 +2,13 @@ package com.madgeek.devonaward.runevents;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -93,6 +96,8 @@ public class Main extends Activity {
         //Link the custom actionbar to the original actionbar
         actionBar.setCustomView(R.layout.action_bar_custom);
 
+
+
         //Search field and search button defined
         search = (EditText) actionBar.getCustomView().findViewById(
                 R.id.searchfield);
@@ -114,6 +119,19 @@ public class Main extends Activity {
                 //Display keyboard
                 InputMethodManager inputMM = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMM.showSoftInput(search, InputMethodManager.SHOW_IMPLICIT);
+
+                //Search explanation. Search not yet active.
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Main.this);
+                alertDialogBuilder.setTitle("Run Events");
+                alertDialogBuilder.setMessage("User will be able to search for races in other cities.");
+                alertDialogBuilder.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show alert
+                alertDialog.show();
             }
 
         });
@@ -127,12 +145,11 @@ public class Main extends Activity {
         //5K button will be enabled by default
         btn5k.setPressed(true);
         //5K button settings
-        btn5k.getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
-        btn5k.setTextColor(Color.DKGRAY);
+        btn5k.setTextColor(Color.rgb(53,232,89));
 
         //10K button settings
-        btn10k.getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
         btn10k.setTextColor(Color.WHITE);
+        btn10k.setEnabled(false);
 
         //If the 5K button is selected, the 10K button will not be selected at the same time.
         btn5k.setOnTouchListener(new View.OnTouchListener() {
@@ -140,7 +157,7 @@ public class Main extends Activity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 btn5k.setPressed(true);
-                btn5k.setTextColor(Color.DKGRAY);
+                btn5k.setTextColor(Color.rgb(0,102,0));
                 btn10k.setTextColor(Color.WHITE);
                 btn10k.setPressed(false);
 
@@ -158,7 +175,7 @@ public class Main extends Activity {
             public boolean onTouch(View v, MotionEvent event) {
                 btn10k.setPressed(true);
                 btn5k.setPressed(false);
-                btn10k.setTextColor(Color.DKGRAY);
+                btn10k.setTextColor(Color.rgb(53,232,89));
                 btn5k.setTextColor(Color.WHITE);
 
 

@@ -2,23 +2,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E8E8E8"
     tools:context="com.madgeek.devonaward.runevents.FavPage">
 
     <ImageButton
-        android:layout_width="195dp"
+        android:layout_width="190dp"
         android:layout_height="60dp"
         android:src="@drawable/ic_listitlight"
         android:id="@+id/btnListOnly"
+        android:background="#000000"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         />
 
     <ImageButton
-        android:layout_width="195dp"
+        android:layout_width="190dp"
         android:layout_height="60dp"
         android:src="@drawable/ic_calendarlistlight"
         android:id="@+id/btnCList"
+        android:background="#000000"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listViewList"
+        android:layout_below="@+id/btnListOnly"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
