@@ -9,7 +9,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -21,6 +23,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 
 public class Main extends Activity {
@@ -85,6 +93,15 @@ public class Main extends Activity {
     //URLs from JSON data will go here
     //String[] registerURLList;
 
+    //This URL will contain the current location of the user.
+    private static String url = "http://api.amp.active.com/v2/search/?city=durham&current_page=1&per_page=10&sort=distance&start_date=2014-09-01..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
+
+    //MOST IMPORTANT BECAUSE IT HOLDS ALL OF THE DATA
+    private static final String TAG_RESULTED = "results";
+    //JSON Array that holds the data retrieved.
+    JSONArray theData;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +113,9 @@ public class Main extends Activity {
         //Link the custom actionbar to the original actionbar
         actionBar.setCustomView(R.layout.action_bar_custom);
 
+        //Get the data
+        //Edit for 5k,10k, and City search
+        new GetData().execute();
 
 
         //Search field and search button defined
@@ -120,18 +140,10 @@ public class Main extends Activity {
                 InputMethodManager inputMM = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMM.showSoftInput(search, InputMethodManager.SHOW_IMPLICIT);
 
-                //Search explanation. Search not yet active.
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Main.this);
-                alertDialogBuilder.setTitle("Run Events");
-                alertDialogBuilder.setMessage("User will be able to search for races in other cities.");
-                alertDialogBuilder.setPositiveButton("OK",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-                        dialog.cancel();
-                    }
-                });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                // show alert
-                alertDialog.show();
+            //new GetDataCity().execute();
+
+
+
             }
 
         });
@@ -161,8 +173,8 @@ public class Main extends Activity {
                 btn10k.setTextColor(Color.WHITE);
                 btn10k.setPressed(false);
 
-
                 //5K races will be retrieved here...
+                //new GetData5K().execute();
                 return true;
             }
         });
@@ -180,6 +192,7 @@ public class Main extends Activity {
 
 
                 //10K races will be retrieved here...
+                //new GetData5K().execute();
                 return true;
             }
         });
@@ -219,5 +232,69 @@ public class Main extends Activity {
         });
 
 
+
+    }
+
+    //Get the data and display from API
+    //This will be used for 5k, 10k, and City search
+    private class GetData extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // Showing progress dialog
+            Log.i("WORKING", "WORKING ON IT...");
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            //Setup the service
+            APIjson AJ = new APIjson();
+
+            //Make the request for data
+            String jsonStr = AJ.makeServiceCall(url, APIjson.GET);
+
+            Log.d("Response: ", "> " + jsonStr);
+
+            if (jsonStr != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(jsonStr);
+
+                    //Getting JSON Array
+                    theData = jsonObj.getJSONArray(TAG_RESULTED);
+
+
+
+                    //Loop through data
+                    for (int i = 0; i < theData.length(); i++) {
+                        JSONObject c = theData.getJSONObject(i);
+
+                        String theEventName = c.getString("assetName");
+                        String theEventDate = c.getString("activityStartDate");
+                        String theEventRegistration = c.getString("registrationUrlAdr");
+                        String theEventCity = c.getJSONObject("place").getString("cityName");
+                        String theEventState = c.getJSONObject("place").getString("stateProvinceCode");
+                        String theEventZip = c.getJSONObject("place").getString("postalCode");
+                        String theEventAddress = c.getJSONObject("place").getString("addressLine1Txt");
+                        Log.i("API WORKING DATA", theEventName+", "+theEventDate+" "+theEventRegistration+" "+theEventCity+", "+theEventState+" "+theEventZip+" "+theEventAddress);
+                    }
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.e("ServiceHandler", "Couldn't get any data from the url");
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            Log.i("API WORKING 2", "NOW WHAT?");
+        }
     }
 }
