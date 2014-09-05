@@ -23,6 +23,7 @@ public class EventDetails extends Activity {
     String fetchedDate;
     String fetchedArea;
     String fetchedRun;
+    String fetchedURL;
     Button regBtn;
 
     @Override
@@ -46,6 +47,7 @@ public class EventDetails extends Activity {
         fetchedDate = intent.getStringExtra("date");
         fetchedArea = intent.getStringExtra("area");
         fetchedRun = intent.getStringExtra("run");
+        fetchedURL = intent.getStringExtra("url");
 
         //Display fetched data
         theTitle.setText(fetchedTitle);
@@ -68,6 +70,7 @@ public class EventDetails extends Activity {
                 webIntent.putExtra("date", fetchedDate);
                 webIntent.putExtra("run", fetchedRun);
                 webIntent.putExtra("area", fetchedArea);
+                webIntent.putExtra("url", fetchedURL);
                 EventDetails.this.startActivity(webIntent);
                 return true;
             }

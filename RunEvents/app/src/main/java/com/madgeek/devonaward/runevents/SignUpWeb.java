@@ -18,6 +18,7 @@ public class SignUpWeb extends Activity {
     String fetchedDate;
     String fetchedArea;
     String fetchedRun;
+    String fetchedURL;
     Context context;
     WebView theWeb;
     @Override
@@ -35,13 +36,14 @@ public class SignUpWeb extends Activity {
         fetchedDate = intent.getStringExtra("date");
         fetchedArea = intent.getStringExtra("area");
         fetchedRun = intent.getStringExtra("run");
+        fetchedURL = intent.getStringExtra("url");
 
         //Display site
         theWeb = (WebView)findViewById(R.id.web);
         theWeb.getSettings().setJavaScriptEnabled(true);
         theWeb.getSettings().setLoadWithOverviewMode(true);
         theWeb.getSettings().setUseWideViewPort(true);
-        theWeb.loadUrl("http://developer.active.com/docs/");
+        theWeb.loadUrl(fetchedURL);
     }
 
 
@@ -67,6 +69,7 @@ public class SignUpWeb extends Activity {
             signUpIntent.putExtra("date", fetchedDate);
             signUpIntent.putExtra("run", fetchedRun);
             signUpIntent.putExtra("area", fetchedArea);
+            signUpIntent.putExtra("url", fetchedURL);
             SignUpWeb.this.startActivity(signUpIntent);
             return true;
         }

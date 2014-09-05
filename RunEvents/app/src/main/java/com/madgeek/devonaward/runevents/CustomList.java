@@ -19,12 +19,12 @@ public class CustomList extends ArrayAdapter<String> {
 
     Activity context;
     ArrayList<String> titleList;
-    String[] dateList;
+    ArrayList<String>dateList;
     ArrayList<String>areaList;
     ArrayList<String>runList;
 
     public CustomList(Activity context,
-                      ArrayList<String> titleList,String[] dateList, ArrayList<String>areaList, ArrayList<String>runList ) {
+                      ArrayList<String> titleList,ArrayList<String>dateList, ArrayList<String>areaList, ArrayList<String>runList ) {
         super(context, R.layout.custom_list_layout, titleList);
         this.context = context;
         this.titleList = titleList;
@@ -47,7 +47,7 @@ public class CustomList extends ArrayAdapter<String> {
 
         txtTitle.setText(titleList.get(position));
         txtArea.setText(areaList.get(position));
-        txtDate.setText(dateList[position]);
+        txtDate.setText(dateList.get(position));
         txtRun.setText(runList.get(position) + " RUN");
 
         return rowView;
