@@ -100,9 +100,6 @@ public class Main extends Activity {
         //Get list view
         mainList=(ListView)findViewById(R.id.listViewData);
 
-        //Get city search text
-        searchF = (EditText)findViewById(R.id.searchfield);
-
         //Get current location
         locateUser = new LocateUser(Main.this);
         // check if GPS enabled
@@ -146,7 +143,8 @@ public class Main extends Activity {
 
             @Override
             public void onClick(View view) {
-
+                //Get city search text
+                searchF = (EditText)findViewById(R.id.searchfield);
                 String searchFtxt = searchF.getText().toString();
                 String btn5KTxt = btn5k.getText().toString();
                 String btn10KTxt = btn10k.getText().toString();
@@ -168,6 +166,12 @@ public class Main extends Activity {
                     adapter.clear();
                     adapter.notifyDataSetChanged();
                     theRunList.clear();
+                    theTitleList.clear();
+                    theAreaList.clear();
+                    theDateList.clear();
+                    theAddressList.clear();
+                    theZipList.clear();
+                    theRegisterList.clear();
 
                     //Complete search for city
                     if(btn5k.isPressed() == true) {
@@ -175,6 +179,7 @@ public class Main extends Activity {
                             theRunList.add("5K");
                         }
                         url = "http://api.amp.active.com/v2/search/?city=" + searchFtxt + "&query=" + btn5KTxt + "&current_page=1&per_page=10&sort=distance&start_date=2014-09-01..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
+                        Log.i("THE RUN: ", btn5KTxt);
                         new GetData().execute();
                     }
                     if(btn10k.isPressed()) {
@@ -213,6 +218,12 @@ public class Main extends Activity {
                 adapter.clear();
                 adapter.notifyDataSetChanged();
                 theRunList.clear();
+                theTitleList.clear();
+                theAreaList.clear();
+                theDateList.clear();
+                theAddressList.clear();
+                theZipList.clear();
+                theRegisterList.clear();
 
                 for (int i = 0; i < 10; i++){
                     theRunList.add("5K");
@@ -239,6 +250,12 @@ public class Main extends Activity {
                 adapter.clear();
                 adapter.notifyDataSetChanged();
                 theRunList.clear();
+                theTitleList.clear();
+                theAreaList.clear();
+                theDateList.clear();
+                theAddressList.clear();
+                theZipList.clear();
+                theRegisterList.clear();
 
                 for (int i = 0; i < 10; i++){
                     theRunList.add("10K");
