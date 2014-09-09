@@ -22,6 +22,9 @@ public class EventDetails extends Activity {
     String fetchedTitle;
     String fetchedDate;
     String fetchedArea;
+    String fetchedcityState;
+    String fetchedAddress;
+    String fetchedZip;
     String fetchedRun;
     String fetchedURL;
     Button regBtn;
@@ -46,6 +49,9 @@ public class EventDetails extends Activity {
         fetchedTitle = intent.getStringExtra("title");
         fetchedDate = intent.getStringExtra("date");
         fetchedArea = intent.getStringExtra("area");
+        fetchedAddress = intent.getStringExtra("address");
+        fetchedcityState = intent.getStringExtra("cityState");
+        fetchedZip = intent.getStringExtra("zipcode");
         fetchedRun = intent.getStringExtra("run");
         fetchedURL = intent.getStringExtra("url");
 
@@ -98,6 +104,10 @@ public class EventDetails extends Activity {
             addEventIntent.putExtra("date", fetchedDate);
             addEventIntent.putExtra("run", fetchedRun);
             addEventIntent.putExtra("area", fetchedArea);
+            addEventIntent.putExtra("address", fetchedAddress);
+            addEventIntent.putExtra("cityState", fetchedcityState);
+            addEventIntent.putExtra("zipcode", fetchedZip);
+            addEventIntent.putExtra("url", fetchedURL);
             EventDetails.this.startActivity(addEventIntent);
             return true;
         }

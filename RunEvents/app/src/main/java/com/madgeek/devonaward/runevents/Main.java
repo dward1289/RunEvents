@@ -282,6 +282,9 @@ public class Main extends Activity {
                 infoIntent.putExtra("date", theDateList.get(+position));
                 infoIntent.putExtra("run", theRunList.get(+position));
                 infoIntent.putExtra("area", theAddressList.get(+position)+"\n" + theAreaList.get(+position)+ " "+theZipList.get(+position));
+                infoIntent.putExtra("address", theAddressList.get(+position));
+                infoIntent.putExtra("cityState", theAreaList.get(+position));
+                infoIntent.putExtra("zipcode", theZipList.get(+position));
                 infoIntent.putExtra("url", theRegisterList.get(+position));
 
                 Main.this.startActivity(infoIntent);

@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -17,6 +18,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 
 public class AddEvent extends Activity {
 
@@ -27,7 +30,11 @@ public class AddEvent extends Activity {
     String fetchedTitle;
     String fetchedDate;
     String fetchedArea;
+    String fetchedcityState;
+    String fetchedAddress;
+    String fetchedZip;
     String fetchedRun;
+    String fetchedURL;
     RadioGroup signupYN;
     RadioButton nosign;
     Button signUpBtn;
@@ -52,7 +59,11 @@ public class AddEvent extends Activity {
         fetchedTitle = intent.getStringExtra("title");
         fetchedDate = intent.getStringExtra("date");
         fetchedArea = intent.getStringExtra("area");
+        fetchedAddress = intent.getStringExtra("address");
+        fetchedcityState = intent.getStringExtra("cityState");
+        fetchedZip = intent.getStringExtra("zipcode");
         fetchedRun = intent.getStringExtra("run");
+        fetchedURL = intent.getStringExtra("url");
 
         //Display fetched data
         theTitle.setText(fetchedTitle);
@@ -112,21 +123,34 @@ public class AddEvent extends Activity {
         int id = item.getItemId();
         if (id == R.id.action_saving) {
             //Saves event
-            //Display alert for save function
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddEvent.this);
-            alertDialogBuilder.setTitle(this.getTitle());
-            alertDialogBuilder.setMessage("User will be able to save the event and view them later.");
-            alertDialogBuilder.setPositiveButton("OK",new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog,int id) {
-                    Intent infoIntent = new Intent(AddEvent.this, Main.class);
-                    AddEvent.this.startActivity(infoIntent);
-                }
-            });
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            // show alert
-            alertDialog.show();
-            return true;
+
+            //Add event to saved list
+            DBHandler dbHandler = new DBHandler(this);
+            dbHandler.addEvent(new DBItems(fetchedTitle, fetchedAddress, fetchedcityState, fetchedZip, fetchedDate, fetchedRun, fetchedURL));
+            List<DBItems> events = dbHandler.getAllEvents();
+            for (DBItems en : events) {
+                String log = "Id: " + en.getID() + " ,Event: " + en.getTitle() + " ,Address: " + en.getAddress()
+                        + "City and State: " + en.getCityState() + " ,Zip: " + en.getZipcode() + " ,Date: "
+                        + en.getDate() + " ,Run: " + en.getRun() + " ,URL: " + en.getRegisterURL();
+                // Writing event to log
+                Log.i("SQLite Working", log);
+            }
+
+                //Display alert for save success
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddEvent.this);
+                alertDialogBuilder.setTitle(this.getTitle());
+                alertDialogBuilder.setMessage("Event saved!");
+                alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent infoIntent = new Intent(AddEvent.this, Main.class);
+                        AddEvent.this.startActivity(infoIntent);
+                    }
+                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show alert
+                alertDialog.show();
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
-    }
 }
