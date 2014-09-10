@@ -17,13 +17,15 @@ public class DBItems{
     String _date;
     String _run;
     String _registerURL;
+    String _signUp;
+    String _countdown;
 
     // Empty constructor
     public DBItems(){
 
     }
     // constructor
-    public DBItems(int id, String title, String address,String cityState, String zipcode, String date, String run, String registerURL){
+    public DBItems(int id, String title, String address,String cityState, String zipcode, String date, String run, String registerURL, String signUp, String countdown){
         this._id = id;
         this._title = title;
         this._address = address;
@@ -32,10 +34,12 @@ public class DBItems{
         this._date = date;
         this._run = run;
         this._registerURL = registerURL;
+        this._signUp = signUp;
+        this._countdown = countdown;
     }
 
     // constructor
-    public DBItems(String title, String address,String cityState, String zipcode, String date, String run, String registerURL){
+    public DBItems(String title, String address,String cityState, String zipcode, String date, String run, String registerURL, String signUp, String countdown){
         this._title = title;
         this._address = address;
         this._cityState = cityState;
@@ -43,6 +47,8 @@ public class DBItems{
         this._date = date;
         this._run = run;
         this._registerURL = registerURL;
+        this._signUp = signUp;
+        this._countdown = countdown;
     }
     // getting ID
     public int getID(){
@@ -105,12 +111,12 @@ public class DBItems{
     }
 
     // getting run
-    public String getRun(){
+    public String gettheRun(){
         return this._run;
     }
 
     // setting run
-    public void setRun(String run){
+    public void settheRun(String run){
         this._run = run;
     }
 
@@ -123,4 +129,25 @@ public class DBItems{
     public void setRegisterURL(String registerURL) {
         this._registerURL = registerURL;
     }
+
+    // getting signup
+    public String getsignUp(){
+        return this._signUp;
+    }
+
+    // setting signup
+    public void setsignUp(String signUp){
+        this._signUp = signUp;
+    }
+
+    // getting countdown
+    public String getCountdown(){
+        return this._countdown;
+    }
+
+    // setting countdown
+    public void setCountdown(String countdown){
+        this._countdown = countdown;
+    }
+
 }

@@ -35,8 +35,10 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String KEY_CITYSTATE = "cityState";
     private static final String KEY_ZIPCODE = "zipcode";
     private static final String KEY_DATE = "date";
-    private static final String KEY_RUN = "run";
+    private static final String KEY_RUN = "theRun";
     private static final String KEY_REGISTERURL = "registerURL";
+    private static final String KEY_SIGNUP = "signup";
+    private static final String KEY_COUNTDOWN = "countdown";
 
     public DBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -47,7 +49,9 @@ public class DBHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_EVENT_TABLE = "CREATE TABLE " + TABLE_EVENTS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_TITLE + " TEXT,"
-                + KEY_ADDRESS + " TEXT," + KEY_CITYSTATE + " TEXT," + KEY_ZIPCODE + " TEXT," + KEY_DATE + " TEXT" + KEY_RUN + " TEXT" + KEY_REGISTERURL + " TEXT" +")";
+                + KEY_ADDRESS + " TEXT," + KEY_CITYSTATE + " TEXT," + KEY_ZIPCODE + " TEXT,"
+                + KEY_DATE + " TEXT," + KEY_RUN + " TEXT," + KEY_REGISTERURL + " TEXT,"
+                + KEY_SIGNUP + " TEXT," + KEY_COUNTDOWN + " TEXT"+ ")";
         db.execSQL(CREATE_EVENT_TABLE);
     }
 
@@ -75,8 +79,10 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(KEY_CITYSTATE, DBItems.getCityState());
         values.put(KEY_ZIPCODE, DBItems.getZipcode());
         values.put(KEY_DATE, DBItems.getDate());
-        values.put(KEY_RUN, DBItems.getRun());
+        values.put(KEY_RUN, DBItems.gettheRun());
         values.put(KEY_REGISTERURL, DBItems.getRegisterURL());
+        values.put(KEY_SIGNUP, DBItems.getsignUp());
+        values.put(KEY_COUNTDOWN, DBItems.getCountdown());
 
         // Inserting Row
         db.insert(TABLE_EVENTS, null, values);
@@ -94,7 +100,7 @@ public class DBHandler extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
         DBItems dbItems = new DBItems(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5) ,cursor.getString(6),cursor.getString(7));
+                cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5) ,cursor.getString(6),cursor.getString(7),cursor.getString(8),cursor.getString(9));
         // return contact
         return dbItems;
     }
@@ -118,9 +124,11 @@ public class DBHandler extends SQLiteOpenHelper {
                 dbItems.setCityState(cursor.getString(3));
                 dbItems.setZipcode(cursor.getString(4));
                 dbItems.setDate(cursor.getString(5));
-                dbItems.setRun(cursor.getString(6));
+                dbItems.settheRun(cursor.getString(6));
                 dbItems.setRegisterURL(cursor.getString(7));
-                // Adding contact to list
+                dbItems.setsignUp(cursor.getString(8));
+                dbItems.setCountdown(cursor.getString(9));
+                // Adding event to list
                 eventList.add(dbItems);
             } while (cursor.moveToNext());
         }
@@ -139,8 +147,10 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(KEY_CITYSTATE, dbItems.getCityState());
         values.put(KEY_ZIPCODE, dbItems.getZipcode());
         values.put(KEY_DATE, dbItems.getDate());
-        values.put(KEY_RUN, dbItems.getRun());
+        values.put(KEY_RUN, dbItems.gettheRun());
         values.put(KEY_REGISTERURL, dbItems.getRegisterURL());
+        values.put(KEY_SIGNUP, dbItems.getsignUp());
+        values.put(KEY_COUNTDOWN, dbItems.getCountdown());
 
         // updating row
         return db.update(TABLE_EVENTS, values, KEY_ID + " = ?",

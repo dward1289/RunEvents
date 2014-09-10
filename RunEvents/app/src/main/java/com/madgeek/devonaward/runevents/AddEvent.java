@@ -35,8 +35,12 @@ public class AddEvent extends Activity {
     String fetchedZip;
     String fetchedRun;
     String fetchedURL;
+    String signUpChecked;
+    String countdownChecked;
     RadioGroup signupYN;
+    RadioGroup countYN;
     RadioButton nosign;
+    RadioButton countRB;
     Button signUpBtn;
 
     @Override
@@ -83,6 +87,25 @@ public class AddEvent extends Activity {
                 nosign = (RadioButton)findViewById(selected);
                 if(nosign.getText().equals("No")){
                     signUpBtn.setVisibility(View.VISIBLE);
+                    signUpChecked = "Sign Up Soon";
+                }else{
+                    signUpChecked = "Already Signed Up";
+                }
+            }
+        });
+        //If the user would like to add a countdown.
+        countYN = (RadioGroup) findViewById(R.id.radioGroupYN1);
+        countYN.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                int selected =
+                        countYN.getCheckedRadioButtonId();
+                countRB = (RadioButton)findViewById(selected);
+                if(countRB.getText().equals("Yes")){
+                    countdownChecked = "DAYS COUNTDOWN";
+                }else{
+                    countdownChecked = " ";
                 }
             }
         });
@@ -122,20 +145,45 @@ public class AddEvent extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_saving) {
-            //Saves event
-
-            //Add event to saved list
-            DBHandler dbHandler = new DBHandler(this);
-            dbHandler.addEvent(new DBItems(fetchedTitle, fetchedAddress, fetchedcityState, fetchedZip, fetchedDate, fetchedRun, fetchedURL));
-            List<DBItems> events = dbHandler.getAllEvents();
-            for (DBItems en : events) {
-                String log = "Id: " + en.getID() + " ,Event: " + en.getTitle() + " ,Address: " + en.getAddress()
-                        + "City and State: " + en.getCityState() + " ,Zip: " + en.getZipcode() + " ,Date: "
-                        + en.getDate() + " ,Run: " + en.getRun() + " ,URL: " + en.getRegisterURL();
-                // Writing event to log
-                Log.i("SQLite Working", log);
-            }
-
+            //Check radio buttons
+            if (countYN.getCheckedRadioButtonId() == -1) {
+                //Display alert to select countdown option
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddEvent.this);
+                alertDialogBuilder.setTitle(this.getTitle());
+                alertDialogBuilder.setMessage("Please select a countdown option. ");
+                alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show alert
+                alertDialog.show();
+            } else if (signupYN.getCheckedRadioButtonId() == -1) {
+                //Display alert to select sign up status
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddEvent.this);
+                alertDialogBuilder.setTitle(this.getTitle());
+                alertDialogBuilder.setMessage("Please select if you have signed up, or not.");
+                alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show alert
+                alertDialog.show();
+            } else {
+                //Save event
+                //Add event to saved list
+                DBHandler dbHandler = new DBHandler(this);
+                dbHandler.addEvent(new DBItems(fetchedTitle, fetchedAddress, fetchedcityState, fetchedZip, fetchedDate, fetchedRun, fetchedURL, signUpChecked, countdownChecked));
+                List<DBItems> events = dbHandler.getAllEvents();
+                for (DBItems en : events) {
+                    String log = "Id: " + en.getID() + " ,Event: " + en.getTitle() + " ,Address: " + en.getAddress()
+                            + "City and State: " + en.getCityState() + " ,Zip: " + en.getZipcode() + " ,Date: "
+                            + en.getDate() + " ,Run: " + en.gettheRun() + " ,URL: " + en.getRegisterURL()
+                            + " ,SignUp: " + en.getsignUp() + " ,Countdown: " + en.getCountdown();
+                    // Writing event to log
+                    Log.i("SQLite Working", log);
+                }
                 //Display alert for save success
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddEvent.this);
                 alertDialogBuilder.setTitle(this.getTitle());
@@ -151,6 +199,7 @@ public class AddEvent extends Activity {
                 alertDialog.show();
                 return true;
             }
+        }
             return super.onOptionsItemSelected(item);
         }
 }
