@@ -18,6 +18,11 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -42,6 +47,7 @@ public class AddEvent extends Activity {
     RadioButton nosign;
     RadioButton countRB;
     Button signUpBtn;
+    Date actualDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +109,52 @@ public class AddEvent extends Activity {
                         countYN.getCheckedRadioButtonId();
                 countRB = (RadioButton)findViewById(selected);
                 if(countRB.getText().equals("Yes")){
-                    countdownChecked = "DAYS COUNTDOWN";
+
+                    //Get current date
+                    Calendar c1 = Calendar.getInstance();
+                    c1.getTime();
+
+                    //Get second calendar
+                    Calendar c2 = Calendar.getInstance();
+
+                    //Convert second calendar string to date
+                    DateFormat inputFormat = new SimpleDateFormat("MMMM dd, yyyy");
+                    DateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy");
+
+                    try {
+                        actualDate = inputFormat.parse(fetchedDate);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    String dateReformated = outputFormat.format(actualDate);
+
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                    Date convertedDate = new Date();
+                    try {
+                        convertedDate = dateFormat.parse(dateReformated);
+                    } catch (ParseException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    c2.setTime(convertedDate);
+
+                    //Get the countdown of days
+                    String elapsedDaysText = null;
+                        try
+                        {
+                            long milliSeconds1 = c1.getTimeInMillis();
+                            long milliSeconds2 = c2.getTimeInMillis();
+                            long periodSeconds = (milliSeconds2 - milliSeconds1) / 1000;
+                            long elapsedDays = periodSeconds / 60 / 60 / 24 + 1;
+                            elapsedDaysText = String.format("%d days", elapsedDays);
+                        }
+                        catch (Exception e)
+                        {
+
+                        }
+
+
+                    countdownChecked = elapsedDaysText+" days away!";
                 }else{
                     countdownChecked = " ";
                 }

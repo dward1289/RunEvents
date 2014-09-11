@@ -2,11 +2,15 @@ package com.madgeek.devonaward.runevents;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -17,50 +21,28 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class FavPage extends Activity {
 
     ImageButton listBtn;
     ImageButton calBtn;
     ListView favList;
-
-    //Dummy data currently. JSON data will be populated in the arrays from API.
+    List<DBItems> savedItemsSQL;
     //Title of events
-    String[] titleList = {
-            "Run in the Name of Love",
-            "Color Me Rad",
-            "Zombie Run"
-    };
+    ArrayList<String> titleList = new ArrayList<String>(11);
     //Dates
-    String[] dateList = {
-            "August 30, 2014",
-            "September 12, 2014",
-            "September 20, 2014"
-    };
+    ArrayList<String> dateList = new ArrayList<String>(11);
     //City and State
-    String[] areaList = {
-            "Durham, NC",
-            "Durham, NC",
-            "Raleigh, NC"
-    };
+    ArrayList<String> areaList = new ArrayList<String>(11);
     //5K or 10K
-    String[] runList = {
-            "5K",
-            "5K",
-            "5K"
-    };
-
-    String[] daysList = {
-            "3",
-            "15",
-            "23"
-    };
-
-    String[] signList = {
-            "Sign Up Soon",
-            "Already Signed Up",
-            "Already Signed Up",
-    };
+    ArrayList<String> runList = new ArrayList<String>(11);
+    //Countdown days
+    ArrayList<String> daysList = new ArrayList<String>(11);
+    //Sign Up
+    ArrayList<String> signList = new ArrayList<String>(11);
 
 
     @Override
@@ -71,6 +53,38 @@ public class FavPage extends Activity {
         //ActionBar icon is back button.
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        //Get database
+        final DBHandler dbHandler = new DBHandler(this);
+        //Get saved events
+        savedItemsSQL = dbHandler.getAllEvents();
+
+        //Check for saved events and Load saved events
+        if(savedItemsSQL.size() == 0){
+            Log.i("DATABASE","EMPTY DATABASE");
+            //Display alert for no saved events
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(FavPage.this);
+            alertDialogBuilder.setTitle(this.getTitle());
+            alertDialogBuilder.setMessage("You haven't saved any events yet.");
+            alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                }
+            });
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            // show alert
+            alertDialog.show();
+
+        }else {
+            //Populate fav list
+            for (DBItems theItem : savedItemsSQL) {
+                titleList.add(theItem.getTitle().toString());
+                dateList.add(theItem.getDate().toString());
+                areaList.add(theItem.getCityState().toString());
+                runList.add(theItem.gettheRun().toString());
+                daysList.add(theItem.getCountdown().toString());
+                signList.add(theItem.getsignUp().toString());
+            }
+        }
 
         listBtn = (ImageButton) findViewById(R.id.btnListOnly);
         calBtn = (ImageButton) findViewById(R.id.btnCList);
@@ -102,7 +116,8 @@ public class FavPage extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(FavPage.this, "Event: " + titleList[+position], Toast.LENGTH_SHORT).show();
+                Toast.makeText(FavPage.this, "Event: " + titleList.get(+position), Toast.LENGTH_SHORT).show();
+                //Alert: View Details or Delete
             }
         });
     }

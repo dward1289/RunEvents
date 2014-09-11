@@ -7,21 +7,23 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by devonaward on 8/27/14.
  */
 public class CustomLisFav extends ArrayAdapter<String> {
 
     Activity context;
-    String[] titleList;
-    String[] dateList;
-    String[] areaList;
-    String[] runList;
-    String[] daysList;
-    String[] signList;
+    ArrayList<String> titleList;
+    ArrayList<String> dateList;
+    ArrayList<String> areaList;
+    ArrayList<String> runList;
+    ArrayList<String> daysList;
+    ArrayList<String> signList;
 
     public CustomLisFav(Activity context,
-                      String[] titleList,String[] dateList, String[] areaList, String[] runList, String[] daysList, String[] signList ) {
+                        ArrayList<String> titleList,ArrayList<String> dateList, ArrayList<String> areaList, ArrayList<String> runList, ArrayList<String> daysList, ArrayList<String> signList ) {
         super(context, R.layout.custom_listfav_layout, titleList);
         this.context = context;
         this.titleList = titleList;
@@ -42,12 +44,12 @@ public class CustomLisFav extends ArrayAdapter<String> {
         TextView txtDays = (TextView) rowView.findViewById(R.id.txtCountit);
         TextView txtSign = (TextView) rowView.findViewById(R.id.txtSign);
 
-        txtTitle.setText(titleList[position]);
-        txtArea.setText(areaList[position]);
-        txtDate.setText(dateList[position]);
-        txtRun.setText(runList[position] + " RUN");
-        txtDays.setText(daysList[position] + " days away!");
-        txtSign.setText(signList[position]);
+        txtTitle.setText(titleList.get(position));
+        txtArea.setText(areaList.get(position));
+        txtDate.setText(dateList.get(position));
+        txtRun.setText(runList.get(position) + " RUN");
+        txtDays.setText(daysList.get(position));
+        txtSign.setText(signList.get(position));
         return rowView;
     }
 }
