@@ -34,6 +34,7 @@ public class FavPageCal extends Activity {
     ImageButton calBtn;
     CalendarView calendarView;
     ListView favcalList;
+    CustomLisFav adapter;
     Date actualDate;
     List<DBItems> savedItemsSQL;
     //Title of events
@@ -76,8 +77,17 @@ public class FavPageCal extends Activity {
             @Override
             public void onSelectedDayChange(CalendarView view,
                                             int year, int month, int dayOfMonth) {
-                Toast.makeText(getApplicationContext(),
-                        dayOfMonth + "/" + +month + "/" + year, Toast.LENGTH_LONG).show();
+
+                //Clear the list first
+                adapter.clear();
+                adapter.notifyDataSetChanged();
+                runList.clear();
+                titleList.clear();
+                areaList.clear();
+                dateList.clear();
+                runList.clear();
+                daysList.clear();
+                signList.clear();
 
                 //Get today's date
                 Calendar now = Calendar.getInstance();
@@ -152,13 +162,6 @@ public class FavPageCal extends Activity {
             }
         });
 
-
-
-
-
-
-
-
         //CList button will be enabled by default
         calBtn.setPressed(true);
         calBtn.setImageResource(R.drawable.ic_calendarlist);
@@ -176,7 +179,7 @@ public class FavPageCal extends Activity {
         });
 
         //Custom adapter displays and add functionality to custom list view
-        CustomLisFav adapter = new
+        adapter = new
                 CustomLisFav(FavPageCal.this, titleList, dateList, areaList, runList, daysList, signList);
         //Get list view
         favcalList=(ListView)findViewById(R.id.listViewCal);
