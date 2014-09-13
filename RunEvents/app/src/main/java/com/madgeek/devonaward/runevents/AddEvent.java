@@ -146,7 +146,7 @@ public class AddEvent extends Activity {
                             long milliSeconds2 = c2.getTimeInMillis();
                             long periodSeconds = (milliSeconds2 - milliSeconds1) / 1000;
                             long elapsedDays = periodSeconds / 60 / 60 / 24 + 1;
-                            elapsedDaysText = String.format("%d days", elapsedDays);
+                            elapsedDaysText = String.format("%d", elapsedDays);
                         }
                         catch (Exception e)
                         {

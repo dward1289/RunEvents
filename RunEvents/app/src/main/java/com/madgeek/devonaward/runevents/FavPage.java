@@ -1,14 +1,21 @@
 package com.madgeek.devonaward.runevents;
 
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.media.Image;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -31,20 +38,24 @@ public class FavPage extends Activity {
     ImageButton calBtn;
     ListView favList;
     List<DBItems> savedItemsSQL;
+    DBItems warningItems;
     //Title of events
-    ArrayList<String> titleList = new ArrayList<String>(11);
+    ArrayList<String> titleList = new ArrayList<String>(100);
     //Dates
-    ArrayList<String> dateList = new ArrayList<String>(11);
+    ArrayList<String> dateList = new ArrayList<String>(100);
     //City and State
-    ArrayList<String> areaList = new ArrayList<String>(11);
+    ArrayList<String> areaList = new ArrayList<String>(100);
     //5K or 10K
-    ArrayList<String> runList = new ArrayList<String>(11);
+    ArrayList<String> runList = new ArrayList<String>(100);
     //Countdown days
-    ArrayList<String> daysList = new ArrayList<String>(11);
+    ArrayList<String> daysList = new ArrayList<String>(100);
     //Sign Up
-    ArrayList<String> signList = new ArrayList<String>(11);
+    ArrayList<String> signList = new ArrayList<String>(100);
+
+    ArrayList<String> warningList = new ArrayList<String>(100);
 
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +95,55 @@ public class FavPage extends Activity {
                 daysList.add(theItem.getCountdown().toString());
                 signList.add(theItem.getsignUp().toString());
             }
+            //Find the events that are coming and display notification
+            for (DBItems theItem : savedItemsSQL) {
+                if (theItem.getCountdown().equals("1 days away!") || theItem.getCountdown().equals("2 days away!")) {
+                    warningList.add(theItem.getTitle().toString());
+                }
+            }
+            if(warningList.size()>1){
+                    //prepare intent which is triggered if the notification is selected
+                    Intent intent = new Intent(this, FavPage.class);
+                    PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+                    //Notification sound
+                    Uri theSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                    // build notification
+                Notification notification  = new Notification.Builder(this)
+                        .setContentTitle("Run Events")
+                        .setContentText("There are " + warningList.size() + " events coming up soon. Have you signed up?")
+                        .setSmallIcon(R.drawable.ic_launcher_notify)
+                        .setContentIntent(pendingIntent)
+                        .setSound(theSound)
+                        .setAutoCancel(true)
+                        .build();
+                NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                //Display notification
+                notificationManager.notify(0, notification);
+            }else if(warningList.size() == 1){
+                StringBuilder sb = new StringBuilder();
+                for(String str : warningList){
+                    sb.append(str).append("");
+                }
+                //Convert the array to a string
+                String strfromArrayList = sb.toString();
+                //prepare intent which is triggered if the notification is selected
+                Intent intent = new Intent(this, FavPage.class);
+                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+                //Notification sound
+                Uri theSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                // build notification
+                Notification notification  = new Notification.Builder(this)
+                        .setContentTitle("Run Events")
+                        .setContentText(strfromArrayList + " is coming up. Have you signed up?")
+                        .setSmallIcon(R.drawable.ic_launcher_notify)
+                        .setContentIntent(pendingIntent)
+                        .setSound(theSound)
+                        .setAutoCancel(true)
+                        .build();
+                NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                //Display notification
+                notificationManager.notify(0, notification);
+            }
         }
 
         listBtn = (ImageButton) findViewById(R.id.btnListOnly);
@@ -117,7 +177,7 @@ public class FavPage extends Activity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Toast.makeText(FavPage.this, "Event: " + titleList.get(+position), Toast.LENGTH_SHORT).show();
-                //Alert: View Details or Delete
+
             }
         });
     }

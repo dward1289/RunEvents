@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/eventTitle"
-        android:textStyle="bold"
         android:textColor="#081EC4"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
@@ -26,7 +25,6 @@
         android:text="@string/address"
         android:layout_alignParentLeft="true"
         android:textColor="#35BD50"
-        android:textStyle="bold"
         android:layout_marginTop="100dp"
         android:layout_marginLeft="10dp"
         android:typeface="serif"/>
@@ -38,7 +36,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/addresshold"
         android:layout_alignParentRight="true"
-        android:textStyle="bold"
         android:layout_marginTop="100dp"
         android:layout_marginRight="10dp"
         android:ellipsize="none"
@@ -53,7 +50,6 @@
         android:text="@string/datetitle"
         android:layout_alignParentLeft="true"
         android:textColor="#35BD50"
-        android:textStyle="bold"
         android:layout_marginTop="180dp"
         android:layout_marginLeft="10dp"
         android:typeface="serif"/>
@@ -65,7 +61,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/dateholder"
         android:layout_alignParentRight="true"
-        android:textStyle="bold"
         android:layout_marginTop="180dp"
         android:layout_marginRight="10dp"
         android:typeface="serif"/>
@@ -77,7 +72,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/distance"
         android:layout_alignParentLeft="true"
-        android:textStyle="bold"
         android:textColor="#F0A400"
         android:layout_marginTop="260dp"
         android:layout_marginLeft="10dp"
@@ -90,7 +84,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/whatk"
         android:layout_alignParentRight="true"
-        android:textStyle="bold"
         android:layout_marginTop="260dp"
         android:layout_marginRight="10dp"
         android:typeface="serif"/>

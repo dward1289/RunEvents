@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/eventTitle"
-        android:textStyle="bold"
         android:textColor="#081EC4"
         android:typeface="serif"
         android:layout_centerHorizontal="true"
@@ -25,7 +24,6 @@
         android:text="@string/address"
         android:typeface="serif"
         android:textColor="#35BD50"
-        android:textStyle="bold"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="100dp"
         android:layout_marginLeft="10dp"/>
@@ -36,7 +34,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/addresshold"
-        android:textStyle="bold"
         android:typeface="serif"
         android:layout_alignParentRight="true"
         android:layout_marginTop="100dp"
@@ -51,7 +48,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/datetitle"
         android:textColor="#35BD50"
-        android:textStyle="bold"
         android:typeface="serif"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="180dp"
@@ -63,7 +59,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/dateholder"
-        android:textStyle="bold"
         android:typeface="serif"
         android:layout_alignParentRight="true"
         android:layout_marginTop="180dp"
@@ -76,7 +71,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/distance"
         android:layout_alignParentLeft="true"
-        android:textStyle="bold"
         android:typeface="serif"
         android:textColor="#F0A400"
         android:layout_marginTop="260dp"
@@ -88,7 +82,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/whatk"
-        android:textStyle="bold"
         android:typeface="serif"
         android:layout_alignParentRight="true"
         android:layout_marginTop="260dp"
@@ -100,7 +93,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/countdownques"
-        android:textStyle="bold"
         android:typeface="serif"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="340dp"
@@ -116,7 +108,6 @@
     <RadioButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
         android:typeface="serif"
         android:text="@string/yes"
         android:id="@+id/radioY"/>
@@ -124,7 +115,6 @@
     <RadioButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
         android:typeface="serif"
         android:text="@string/no"
         android:layout_marginLeft="80dp"
@@ -137,7 +127,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/signup"
-        android:textStyle="bold"
         android:typeface="serif"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="410dp"
@@ -154,7 +143,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/yes"
-            android:textStyle="bold"
             android:typeface="serif"
             android:id="@+id/radioY2"/>
 
@@ -162,7 +150,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/no"
-            android:textStyle="bold"
             android:typeface="serif"
             android:layout_marginLeft="80dp"
             android:id="@+id/radioN2" />
