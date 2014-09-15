@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -46,6 +47,8 @@ public class Main extends Activity {
     Button viewFavBtn;
     EditText searchF;
     ListView mainList;
+    AlertDialog.Builder alertData;
+    AlertDialog alertDialog;
 
     //Locate user settings
     LocateUser locateUser;
@@ -173,8 +176,9 @@ public class Main extends Activity {
                     theZipList.clear();
                     theRegisterList.clear();
 
+
                     //Complete search for city
-                    if(btn5k.isPressed() == true) {
+                    if(btn5k.getCurrentTextColor() == Color.rgb(53,232,89)) {
                         for (int i = 0; i < 10; i++){
                             theRunList.add("5K");
                         }
@@ -182,7 +186,7 @@ public class Main extends Activity {
                         Log.i("THE RUN: ", btn5KTxt);
                         new GetData().execute();
                     }
-                    if(btn10k.isPressed()) {
+                    if(btn10k.getCurrentTextColor() == Color.rgb(53,232,89)) {
                         for (int i = 0; i < 10; i++){
                             theRunList.add("10K");
                         }
@@ -198,8 +202,7 @@ public class Main extends Activity {
         btn5k = (Button) findViewById(R.id.btn5);
         btn10k = (Button) findViewById(R.id.btn10);
         viewFavBtn = (Button) findViewById(R.id.viewFavBtn);
-        //5K button will be enabled by default
-        btn5k.setPressed(true);
+
         //5K button settings
         btn5k.setTextColor(Color.rgb(53,232,89));
 
@@ -207,14 +210,13 @@ public class Main extends Activity {
         btn10k.setTextColor(Color.WHITE);
 
         //If the 5K button is selected, the 10K button will not be selected at the same time.
-        btn5k.setOnTouchListener(new View.OnTouchListener() {
+        btn5k.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                btn5k.setPressed(true);
-                btn5k.setTextColor(Color.rgb(53,232,89));
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                btn5k.setTextColor(Color.rgb(53, 232, 89));
                 btn10k.setTextColor(Color.WHITE);
-                btn10k.setPressed(false);
+
                 adapter.clear();
                 adapter.notifyDataSetChanged();
                 theRunList.clear();
@@ -225,28 +227,24 @@ public class Main extends Activity {
                 theZipList.clear();
                 theRegisterList.clear();
 
-                for (int i = 0; i < 10; i++){
+                for (int i = 0; i < 10; i++) {
                     theRunList.add("5K");
                 }
-
                 //5K races will be retrieved here...
-                url = "http://api.amp.active.com/v2/search/?lat_lon="+latitude+"%2C"+longitude+"&radius=50&query=5k&current_page=1&per_page=10&sort=distance&start_date=2014-09-01..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
+                url = "http://api.amp.active.com/v2/search/?lat_lon=" + latitude + "%2C" + longitude + "&radius=50&query=5k&current_page=1&per_page=10&sort=distance&start_date=2014-09-01..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
                 new GetData().execute();
-
-                return true;
             }
         });
 
 
         //If the 10K button is selected, the 5K button will not be selected at the same time.
-        btn10k.setOnTouchListener(new View.OnTouchListener() {
+        btn10k.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                btn10k.setPressed(true);
-                btn5k.setPressed(false);
-                btn10k.setTextColor(Color.rgb(53,232,89));
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                btn10k.setTextColor(Color.rgb(53, 232, 89));
                 btn5k.setTextColor(Color.WHITE);
+
                 adapter.clear();
                 adapter.notifyDataSetChanged();
                 theRunList.clear();
@@ -257,13 +255,12 @@ public class Main extends Activity {
                 theZipList.clear();
                 theRegisterList.clear();
 
-                for (int i = 0; i < 10; i++){
+                for (int i = 0; i < 10; i++) {
                     theRunList.add("10K");
                 }
                 //10K races will be retrieved here...
-                url = "http://api.amp.active.com/v2/search/?lat_lon="+latitude+"%2C"+longitude+"&radius=50&query=10k&current_page=1&per_page=10&sort=distance&start_date=2014-09-01..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
+                url = "http://api.amp.active.com/v2/search/?lat_lon=" + latitude + "%2C" + longitude + "&radius=50&query=10k&current_page=1&per_page=10&sort=distance&start_date=2014-09-01..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
                 new GetData().execute();
-                return true;
             }
         });
 
@@ -314,6 +311,13 @@ public class Main extends Activity {
             super.onPreExecute();
             // Showing progress dialog
             Log.i("WORKING", "WORKING ON IT...");
+            alertData = new AlertDialog.Builder(Main.this);
+            LayoutInflater factory = LayoutInflater.from(Main.this);
+            final View view = factory.inflate(R.layout.alertload, null);
+            alertData.setView(view);
+            alertDialog = alertData.create();
+            // show alert
+            alertDialog.show();
         }
 
         @Override
@@ -378,8 +382,8 @@ public class Main extends Activity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             Log.i("API WORKING 2", "GREAT");
-
             adapter.notifyDataSetChanged();
+            alertDialog.cancel();
 
         }
     }

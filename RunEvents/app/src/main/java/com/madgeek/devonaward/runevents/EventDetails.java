@@ -76,6 +76,9 @@ public class EventDetails extends Activity {
                 webIntent.putExtra("date", fetchedDate);
                 webIntent.putExtra("run", fetchedRun);
                 webIntent.putExtra("area", fetchedArea);
+                webIntent.putExtra("address", fetchedAddress);
+                webIntent.putExtra("cityState", fetchedcityState);
+                webIntent.putExtra("zipcode", fetchedZip);
                 webIntent.putExtra("url", fetchedURL);
                 EventDetails.this.startActivity(webIntent);
                 return true;
