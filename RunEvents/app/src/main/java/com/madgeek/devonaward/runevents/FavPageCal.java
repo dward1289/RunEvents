@@ -189,8 +189,7 @@ public class FavPageCal extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(FavPageCal.this, "Event: " + titleList.get(+position), Toast.LENGTH_SHORT).show();
-                //Alert: View Details or Delete
+
             }
         });
 

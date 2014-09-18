@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
@@ -6,9 +6,9 @@
     <WebView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_gravity="center"
-        android:fadeScrollbars="true"
+        android:layout_gravity="right"
+        android:id="@+id/web"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
-        android:id="@+id/web"/>
-
-</LinearLayout>
+</RelativeLayout>

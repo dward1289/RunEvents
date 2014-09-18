@@ -38,7 +38,7 @@ public class FavPage extends Activity {
     ImageButton calBtn;
     ListView favList;
     List<DBItems> savedItemsSQL;
-    DBItems warningItems;
+
     //Title of events
     ArrayList<String> titleList = new ArrayList<String>(100);
     //Dates
@@ -53,6 +53,10 @@ public class FavPage extends Activity {
     ArrayList<String> signList = new ArrayList<String>(100);
 
     ArrayList<String> warningList = new ArrayList<String>(100);
+    ArrayList<String> addressList = new ArrayList<String>(100);
+    ArrayList<String> zipList = new ArrayList<String>(100);
+    ArrayList<String> urlList = new ArrayList<String>(100);
+
 
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -94,6 +98,9 @@ public class FavPage extends Activity {
                 runList.add(theItem.gettheRun().toString());
                 daysList.add(theItem.getCountdown().toString());
                 signList.add(theItem.getsignUp().toString());
+                addressList.add(theItem.getAddress().toString());
+                zipList.add(theItem.getZipcode().toString());
+                urlList.add(theItem.getRegisterURL().toString());
             }
             //Find the events that are coming and display notification
             for (DBItems theItem : savedItemsSQL) {
@@ -175,8 +182,46 @@ public class FavPage extends Activity {
         favList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+                                    final int position, long id) {
                 Toast.makeText(FavPage.this, "Event: " + titleList.get(+position), Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(FavPage.this);
+
+                alertDialogBuilder.setTitle("Saved Events");
+                alertDialogBuilder.setMessage("What would you like to do with the selected event?");
+
+                alertDialogBuilder.setPositiveButton("View Details", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //Navigate to event details
+                        Intent eventIntent = new Intent(FavPage.this, EventDetails.class);
+
+                        eventIntent.putExtra("title", titleList.get(+position));
+                        eventIntent.putExtra("date", dateList.get(+position));
+                        eventIntent.putExtra("run", runList.get(+position));
+                        eventIntent.putExtra("area", addressList.get(+position)+"\n" + areaList.get(+position)+ " "+zipList.get(+position));
+                        eventIntent.putExtra("url", urlList.get(+position));
+                        eventIntent.putExtra("address", addressList.get(+position));
+                        eventIntent.putExtra("cityState", areaList.get(+position));
+                        eventIntent.putExtra("zipcode", zipList.get(+position));
+                        FavPage.this.startActivity(eventIntent);
+                    }
+                });
+                alertDialogBuilder.setNegativeButton("Delete Event", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        dbHandler.deleteEvent(savedItemsSQL.get(position).getID());
+                        dbHandler.close();
+                        finish();
+                        startActivity(getIntent());
+                    }
+                });
+                alertDialogBuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show alert
+                alertDialog.show();
 
             }
         });

@@ -3,6 +3,7 @@ package com.madgeek.devonaward.runevents;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -47,8 +48,7 @@ public class Main extends Activity {
     Button viewFavBtn;
     EditText searchF;
     ListView mainList;
-    AlertDialog.Builder alertData;
-    AlertDialog alertDialog;
+    ProgressDialog dialog;
 
     //Locate user settings
     LocateUser locateUser;
@@ -311,13 +311,9 @@ public class Main extends Activity {
             super.onPreExecute();
             // Showing progress dialog
             Log.i("WORKING", "WORKING ON IT...");
-            alertData = new AlertDialog.Builder(Main.this);
-            LayoutInflater factory = LayoutInflater.from(Main.this);
-            final View view = factory.inflate(R.layout.alertload, null);
-            alertData.setView(view);
-            alertDialog = alertData.create();
-            // show alert
-            alertDialog.show();
+
+            dialog = ProgressDialog.show(Main.this, "",
+                    "Loading events. Please wait...", true);
         }
 
         @Override
@@ -383,7 +379,7 @@ public class Main extends Activity {
             super.onPostExecute(result);
             Log.i("API WORKING 2", "GREAT");
             adapter.notifyDataSetChanged();
-            alertDialog.cancel();
+            dialog.dismiss();
 
         }
     }

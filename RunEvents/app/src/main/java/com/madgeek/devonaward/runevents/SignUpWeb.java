@@ -60,7 +60,9 @@ public class SignUpWeb extends Activity {
         theWeb.getSettings().setJavaScriptEnabled(true);
         theWeb.setWebViewClient(new WebViewClient());
         theWeb.getSettings().setLoadWithOverviewMode(true);
-        theWeb.setInitialScale(600);
+        theWeb.setInitialScale(200);
+        theWeb.getSettings().setUserAgentString("Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/4.0");
+
 
 
         theWeb.loadUrl(fetchedURL);
