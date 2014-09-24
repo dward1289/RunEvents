@@ -165,7 +165,6 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-
     // Getting Event Count
     public int getEventCount() {
         String countQuery = "SELECT  * FROM " + TABLE_EVENTS;

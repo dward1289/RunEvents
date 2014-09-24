@@ -4,22 +4,14 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,8 +27,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 
 public class Main extends Activity {
@@ -88,6 +80,8 @@ public class Main extends Activity {
     //JSON Array that holds the data retrieved.
     JSONArray theData;
 
+    String mainDate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +93,12 @@ public class Main extends Activity {
 
         //Link the custom actionbar to the original actionbar
         actionBar.setCustomView(R.layout.action_bar_custom);
+
+        Calendar mainCalendar = Calendar.getInstance();
+        Date theDate = mainCalendar.getTime();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        mainDate = df.format(theDate);
+        Log.i("THE DATE", mainDate);
 
         //Get list view
         mainList=(ListView)findViewById(R.id.listViewData);
@@ -119,7 +119,7 @@ public class Main extends Activity {
             locateUser.SettingsAlert();
         }
         //Complete search with current location of user by default.
-        url = "http://api.amp.active.com/v2/search/?lat_lon="+latitude+"%2C"+longitude+"&radius=50&query=5k&current_page=1&per_page=10&sort=distance&start_date=2014-09-01..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
+        url = "http://api.amp.active.com/v2/search/?lat_lon="+latitude+"%2C"+longitude+"&radius=50&query=5k&current_page=1&per_page=10&sort=distance&start_date="+mainDate+"..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
 
         //Search field and search button defined
         search = (EditText) actionBar.getCustomView().findViewById(
@@ -182,7 +182,7 @@ public class Main extends Activity {
                         for (int i = 0; i < 10; i++){
                             theRunList.add("5K");
                         }
-                        url = "http://api.amp.active.com/v2/search/?city=" + searchFtxt + "&query=" + btn5KTxt + "&current_page=1&per_page=10&sort=distance&start_date=2014-09-01..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
+                        url = "http://api.amp.active.com/v2/search/?city=" + searchFtxt + "&query=" + btn5KTxt + "&current_page=1&per_page=10&sort=distance&start_date="+mainDate+"..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
                         Log.i("THE RUN: ", btn5KTxt);
                         new GetData().execute();
                     }
@@ -190,7 +190,7 @@ public class Main extends Activity {
                         for (int i = 0; i < 10; i++){
                             theRunList.add("10K");
                         }
-                        url = "http://api.amp.active.com/v2/search/?city=" + searchFtxt + "&query=" + btn10KTxt + "&current_page=1&per_page=10&sort=distance&start_date=2014-09-01..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
+                        url = "http://api.amp.active.com/v2/search/?city=" + searchFtxt + "&query=" + btn10KTxt + "&current_page=1&per_page=10&sort=distance&start_date="+mainDate+"..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
                         new GetData().execute();
                     }
                 }
@@ -231,7 +231,7 @@ public class Main extends Activity {
                     theRunList.add("5K");
                 }
                 //5K races will be retrieved here...
-                url = "http://api.amp.active.com/v2/search/?lat_lon=" + latitude + "%2C" + longitude + "&radius=50&query=5k&current_page=1&per_page=10&sort=distance&start_date=2014-09-01..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
+                url = "http://api.amp.active.com/v2/search/?lat_lon=" + latitude + "%2C" + longitude + "&radius=50&query=5k&current_page=1&per_page=10&sort=distance&start_date="+mainDate+"..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
                 new GetData().execute();
             }
         });
@@ -259,7 +259,7 @@ public class Main extends Activity {
                     theRunList.add("10K");
                 }
                 //10K races will be retrieved here...
-                url = "http://api.amp.active.com/v2/search/?lat_lon=" + latitude + "%2C" + longitude + "&radius=50&query=10k&current_page=1&per_page=10&sort=distance&start_date=2014-09-01..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
+                url = "http://api.amp.active.com/v2/search/?lat_lon=" + latitude + "%2C" + longitude + "&radius=50&query=10k&current_page=1&per_page=10&sort=distance&start_date="+mainDate+"..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
                 new GetData().execute();
             }
         });
@@ -278,7 +278,7 @@ public class Main extends Activity {
                 infoIntent.putExtra("title", theTitleList.get(+position));
                 infoIntent.putExtra("date", theDateList.get(+position));
                 infoIntent.putExtra("run", theRunList.get(+position));
-                infoIntent.putExtra("area", theAddressList.get(+position)+"\n" + theAreaList.get(+position)+ " "+theZipList.get(+position));
+                infoIntent.putExtra("area", theAddressList.get(+position)+" " + theAreaList.get(+position)+ " "+theZipList.get(+position));
                 infoIntent.putExtra("address", theAddressList.get(+position));
                 infoIntent.putExtra("cityState", theAreaList.get(+position));
                 infoIntent.putExtra("zipcode", theZipList.get(+position));
@@ -345,6 +345,7 @@ public class Main extends Activity {
                         theEventZip = c.getJSONObject("place").getString("postalCode");
                         theEventAddress = c.getJSONObject("place").getString("addressLine1Txt");
 
+
                         Log.i("API WORKING DATA", theEventName+", "+theEventDate+" "+theEventRegistration+" "+theEventCity+", "+theEventState+" "+theEventZip+" "+theEventAddress);
 
                         //Format the date to display properly
@@ -361,6 +362,7 @@ public class Main extends Activity {
                         theAddressList.add(theEventAddress);
                         theZipList.add(theEventZip);
                         theRegisterList.add(theEventRegistration);
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

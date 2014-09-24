@@ -225,32 +225,99 @@ public class AddEvent extends Activity {
                 //Save event
                 //Add event to saved list
                 DBHandler dbHandler = new DBHandler(this);
-                dbHandler.addEvent(new DBItems(fetchedTitle, fetchedAddress, fetchedcityState, fetchedZip, fetchedDate, fetchedRun, fetchedURL, signUpChecked, countdownChecked));
-                List<DBItems> events = dbHandler.getAllEvents();
-                for (DBItems en : events) {
-                    String log = "Id: " + en.getID() + " ,Event: " + en.getTitle() + " ,Address: " + en.getAddress()
-                            + "City and State: " + en.getCityState() + " ,Zip: " + en.getZipcode() + " ,Date: "
-                            + en.getDate() + " ,Run: " + en.gettheRun() + " ,URL: " + en.getRegisterURL()
-                            + " ,SignUp: " + en.getsignUp() + " ,Countdown: " + en.getCountdown();
-                    // Writing event to log
-                    Log.i("SQLite Working", log);
-                }
-                //Display alert for save success
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddEvent.this);
-                alertDialogBuilder.setTitle(this.getTitle());
-                alertDialogBuilder.setMessage("Event saved!");
-                alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Intent infoIntent = new Intent(AddEvent.this, Main.class);
-                        AddEvent.this.startActivity(infoIntent);
+                List<DBItems> events1 = dbHandler.getAllEvents();
+                if(events1.isEmpty() == false) {
+                    for (DBItems en2 : events1) {
+                        if (en2.getTitle().equals(fetchedTitle)) {
+                            Log.i("DUPLICATE", "DUPLICATE FOUND");
+                            //Display alert for duplicate
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddEvent.this);
+                            alertDialogBuilder.setTitle(this.getTitle());
+                            alertDialogBuilder.setMessage("This event has been saved already.");
+                            alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Intent infoIntent = new Intent(AddEvent.this, EventDetails.class);
+                                    infoIntent.putExtra("title", fetchedTitle);
+                                    infoIntent.putExtra("date", fetchedDate);
+                                    infoIntent.putExtra("run", fetchedRun);
+                                    infoIntent.putExtra("area", fetchedArea);
+                                    infoIntent.putExtra("address", fetchedAddress);
+                                    infoIntent.putExtra("cityState", fetchedcityState);
+                                    infoIntent.putExtra("zipcode", fetchedZip);
+                                    infoIntent.putExtra("url", fetchedURL);
+                                    AddEvent.this.startActivity(infoIntent);
+                                }
+                            });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            // show alert
+                            alertDialog.show();
+                            return true;
+                        }else{
+                            dbHandler.addEvent(new DBItems(fetchedTitle, fetchedAddress, fetchedcityState, fetchedZip, fetchedDate, fetchedRun, fetchedURL, signUpChecked, countdownChecked));
+                            List<DBItems> events = dbHandler.getAllEvents();
+                            for (DBItems en : events) {
+                                String log = "Id: " + en.getID() + " ,Event: " + en.getTitle() + " ,Address: " + en.getAddress()
+                                        + "City and State: " + en.getCityState() + " ,Zip: " + en.getZipcode() + " ,Date: "
+                                        + en.getDate() + " ,Run: " + en.gettheRun() + " ,URL: " + en.getRegisterURL()
+                                        + " ,SignUp: " + en.getsignUp() + " ,Countdown: " + en.getCountdown();
+                                // Writing event to log
+                                Log.i("SQLite Working", log);
+                            }
+                            //Display alert for save success
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddEvent.this);
+                            alertDialogBuilder.setTitle(this.getTitle());
+                            alertDialogBuilder.setMessage("Event saved!");
+                            alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Intent infoIntent = new Intent(AddEvent.this, Main.class);
+                                    AddEvent.this.startActivity(infoIntent);
+                                }
+                            });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            // show alert
+                            alertDialog.show();
+                            return true;
+                        }
                     }
-                });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                // show alert
-                alertDialog.show();
-                return true;
+                }
+                if(events1.isEmpty() == true){
+                    dbHandler.addEvent(new DBItems(fetchedTitle, fetchedAddress, fetchedcityState, fetchedZip, fetchedDate, fetchedRun, fetchedURL, signUpChecked, countdownChecked));
+                    List<DBItems> events = dbHandler.getAllEvents();
+                    for (DBItems en : events) {
+                        String log = "Id: " + en.getID() + " ,Event: " + en.getTitle() + " ,Address: " + en.getAddress()
+                                + "City and State: " + en.getCityState() + " ,Zip: " + en.getZipcode() + " ,Date: "
+                                + en.getDate() + " ,Run: " + en.gettheRun() + " ,URL: " + en.getRegisterURL()
+                                + " ,SignUp: " + en.getsignUp() + " ,Countdown: " + en.getCountdown();
+                        // Writing event to log
+                        Log.i("SQLite Working", log);
+                    }
+                    //Display alert for save success
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddEvent.this);
+                    alertDialogBuilder.setTitle(this.getTitle());
+                    alertDialogBuilder.setMessage("Event saved!");
+                    alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent infoIntent = new Intent(AddEvent.this, Main.class);
+                            AddEvent.this.startActivity(infoIntent);
+                        }
+                    });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    // show alert
+                    alertDialog.show();
+                    return true;
+                }
+
             }
+
         }
+
+
+
+
+
+
+
+
             return super.onOptionsItemSelected(item);
         }
 }
