@@ -81,6 +81,9 @@ public class Main extends Activity {
     JSONArray theData;
 
     String mainDate;
+    String searchFtxt;
+    String btn5KTxt;
+    String btn10KTxt;
 
 
     @Override
@@ -148,9 +151,9 @@ public class Main extends Activity {
             public void onClick(View view) {
                 //Get city search text
                 searchF = (EditText)findViewById(R.id.searchfield);
-                String searchFtxt = searchF.getText().toString();
-                String btn5KTxt = btn5k.getText().toString();
-                String btn10KTxt = btn10k.getText().toString();
+                searchFtxt = searchF.getText().toString();
+                btn5KTxt = btn5k.getText().toString();
+                btn10KTxt = btn10k.getText().toString();
 
                 //If the edit text is empty, an alert will display
                 if (searchFtxt.matches("")) {
@@ -182,16 +185,62 @@ public class Main extends Activity {
                         for (int i = 0; i < 10; i++){
                             theRunList.add("5K");
                         }
-                        url = "http://api.amp.active.com/v2/search/?city=" + searchFtxt + "&query=" + btn5KTxt + "&current_page=1&per_page=10&sort=distance&start_date="+mainDate+"..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
-                        Log.i("THE RUN: ", btn5KTxt);
-                        new GetData().execute();
+                        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Main.this);
+                        alertDialogBuilder.setTitle("Run Events");
+                        alertDialogBuilder.setMessage("Select a radius.");
+                        alertDialogBuilder.setNegativeButton("20 miles", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                url = "http://api.amp.active.com/v2/search/?city=" + searchFtxt + "&query=" + btn5KTxt + "&current_page=1&radius=20per_page=10&sort=distance&start_date=" + mainDate + "..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
+                                Log.i("THE RUN: ", btn5KTxt);
+                                new GetData().execute();
+                            }
+                        });
+                        alertDialogBuilder.setPositiveButton("30 miles", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                url = "http://api.amp.active.com/v2/search/?city=" + searchFtxt + "&query=" + btn5KTxt + "&current_page=1&radius=30per_page=10&sort=distance&start_date=" + mainDate + "..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
+                                Log.i("THE RUN: ", btn5KTxt);
+                                new GetData().execute();
+                            }
+                        });
+                        alertDialogBuilder.setNeutralButton("Cancel",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        // show alert
+                        alertDialog.show();
+
                     }
                     if(btn10k.getCurrentTextColor() == Color.rgb(53,232,89)) {
                         for (int i = 0; i < 10; i++){
                             theRunList.add("10K");
                         }
-                        url = "http://api.amp.active.com/v2/search/?city=" + searchFtxt + "&query=" + btn10KTxt + "&current_page=1&per_page=10&sort=distance&start_date="+mainDate+"..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
-                        new GetData().execute();
+                        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Main.this);
+                        alertDialogBuilder.setTitle("Run Events");
+                        alertDialogBuilder.setMessage("Select a radius.");
+                        alertDialogBuilder.setNegativeButton("20 miles", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                url = "http://api.amp.active.com/v2/search/?city=" + searchFtxt + "&query=" + btn10KTxt + "&current_page=1&radius=20per_page=10&sort=distance&start_date=" + mainDate + "..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
+                                Log.i("THE RUN: ", btn10KTxt);
+                                new GetData().execute();
+                            }
+                        });
+                        alertDialogBuilder.setPositiveButton("30 miles", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                url = "http://api.amp.active.com/v2/search/?city=" + searchFtxt + "&query=" + btn10KTxt + "&current_page=1&radius=30per_page=10&sort=distance&start_date=" + mainDate + "..&exclude_children=true&api_key=sqq35zvx6a8rgmxhy9csm8qj";
+                                Log.i("THE RUN: ", btn10KTxt);
+                                new GetData().execute();
+                            }
+                        });
+                        alertDialogBuilder.setNeutralButton("Cancel",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        // show alert
+                        alertDialog.show();
                     }
                 }
 
